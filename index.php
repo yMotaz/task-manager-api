@@ -13,6 +13,9 @@ switch ($request) {
     case (preg_match('/\/usuarios\/\d+/', $request) ? true : false) && $_SERVER['REQUEST_METHOD'] === 'DELETE':
         require __DIR__ . '/src/delete.php';
         break;
+    case (strpos($request, '/usuarios') === 0 && $method === 'POST'):
+    require 'usuarios/create.php';
+    break;
     default:
         http_response_code(404);
         echo json_encode(['erro' => 'Rota não encontrada']);
