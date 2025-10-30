@@ -1,7 +1,7 @@
 <?php
 require '../../db.php';
 
-$stmt = $pdo->query("SELECT * FROM tasks");
-$tasks = $stmt->fetchAll();
+$stmt = $pdo->query("SELECT * FROM user_manager");
+$usuarios = $stmt->fetchAll();
 
-echo json_encode($tasks);
+echo json_encode($usuarios);
