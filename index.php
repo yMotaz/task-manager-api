@@ -7,6 +7,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 // Remove query string da URL, se houver
 $request = explode('?', $request)[0];
 
+// Normaliza removendo o prefixo do projeto
+$request = str_replace('/task-manager-api', '', $request);
+
 switch (true) {
     // TASKS
     case (strpos($request, '/api/tasks') === 0 && $method === 'GET'):
