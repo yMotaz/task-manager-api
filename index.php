@@ -7,7 +7,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 // Remove query string da URL, se houver
 $request = explode('?', $request)[0];
 
-// Normaliza removendo o prefixo do projeto
+// Normaliza removendo o prefixo do projeto (ajuste conforme o nome da pasta no htdocs)
 $request = str_replace('/task-manager-api', '', $request);
 
 switch (true) {
@@ -41,6 +41,6 @@ switch (true) {
 
     default:
         http_response_code(404);
-        echo json_encode(array("error" => "Rota não encontrada"));
+        echo json_encode(array("error" => "Rota não encontrada", "rota" => $request));
         break;
 }
