@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'task_manager';
+$db = 'user_manager'; // <-- aqui troca para o nome correto do banco
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -15,6 +15,9 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Erro na conexão com o banco']);
+    echo json_encode([
+        'error' => 'Erro na conexão com o banco',
+        'detalhe' => $e->getMessage()
+    ]);
     exit;
 }
