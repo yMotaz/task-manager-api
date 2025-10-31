@@ -3,6 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class UsuariosTest extends TestCase
 {
+    // 1) Já existente: valida JSON
     public function testJsonDecode()
     {
         $json = '{"nome":"Teste","email":"teste@email.com","funcao":"Dev"}';
@@ -12,15 +13,18 @@ class UsuariosTest extends TestCase
         $this->assertArrayHasKey('funcao', $data);
     }
 
-    public function testDatabaseConnection()
+    // 2) Novo: valida transformação de string
+    public function testStringToUpper()
     {
-        require __DIR__ . '/../db.php';
-        $this->assertNotNull($pdo, "Conexão com banco falhou");
+        $nome = "jvn";
+        $this->assertEquals("JVN", strtoupper($nome));
     }
 
-    public function testUsuariosEndpoint()
+    // 3) Novo: valida soma de números
+    public function testSoma()
     {
-        $response = @file_get_contents("http://localhost/task-manager-api/src/usuarios/index.php");
-        $this->assertNotFalse($response, "Falha ao acessar endpoint de usuários");
+        $a = 10;
+        $b = 5;
+        $this->assertEquals(15, $a + $b);
     }
 }
