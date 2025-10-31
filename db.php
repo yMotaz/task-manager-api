@@ -1,6 +1,10 @@
 <?php
 $host = 'localhost';
+<<<<<<< HEAD
 $db = 'user_manager'; // <-- aqui troca para o nome correto do banco
+=======
+$db = 'user_manager';
+>>>>>>> 75ace7c (Adiciona workflow de CI com PHPUnit)
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
