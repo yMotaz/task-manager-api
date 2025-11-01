@@ -1,46 +1,55 @@
 <?php
 header('Content-Type: application/json');
 
-$request = $_SERVER['REQUEST_URI'];
-$method = $_SERVER['REQUEST_METHOD'];
+$method  = $_SERVER['REQUEST_METHOD'];
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Remove query string da URL, se houver
-$request = explode('?', $request)[0];
-
-// Normaliza removendo o prefixo do projeto (ajuste conforme o nome da pasta no htdocs)
-$request = str_replace('/task-manager-api', '', $request);
-
-switch (true) {
-    // TASKS
-    case (strpos($request, '/api/tasks') === 0 && $method === 'GET'):
-        require 'src/tasks/index.php';
-        break;
-    case (strpos($request, '/api/tasks') === 0 && $method === 'POST'):
-        require 'src/tasks/create.php';
-        break;
-    case (strpos($request, '/api/tasks/') === 0 && $method === 'PUT'):
-        require 'src/tasks/update.php';
-        break;
-    case (strpos($request, '/api/tasks/') === 0 && $method === 'DELETE'):
-        require 'src/tasks/delete.php';
-        break;
-
-    // USUÁRIOS
-    case (strpos($request, '/api/usuarios') === 0 && $method === 'GET'):
-        require 'src/usuarios/index.php';
-        break;
-    case (strpos($request, '/api/usuarios') === 0 && $method === 'POST'):
-        require 'src/usuarios/create.php';
-        break;
-    case (strpos($request, '/api/usuarios/') === 0 && $method === 'PUT'):
-        require 'src/usuarios/update.php';
-        break;
-    case (strpos($request, '/api/usuarios/') === 0 && $method === 'DELETE'):
-        require 'src/usuarios/delete.php';
-        break;
-
-    default:
-        http_response_code(404);
-        echo json_encode(array("error" => "Rota não encontrada", "rota" => $request));
-        break;
+// Rota raiz (status da API)
+if ($request === '/' && $method === 'GET') {
+    echo json_encode(["message" => "API online 🚀"]);
+    exit;
 }
+
+// TASKS
+if ($request === '/api/tasks' && $method === 'GET') {
+    require 'src/tasks/index.php';
+    exit;
+}
+if ($request === '/api/tasks' && $method === 'POST') {
+    require 'src/tasks/create.php';
+    exit;
+}
+if (preg_match('#^/api/tasks/\d+$#', $request) && $method === 'PUT') {
+    require 'src/tasks/update.php';
+    exit;
+}
+if (preg_match('#^/api/tasks/\d+$#', $request) && $method === 'DELETE') {
+    require 'src/tasks/delete.php';
+    exit;
+}
+
+// USUÁRIOS
+if ($request === '/api/usuarios' && $method === 'GET') {
+    require 'src/usuarios/index.php';
+    exit;
+}
+if ($request === '/api/usuarios' && $method === 'POST') {
+    require 'src/usuarios/create.php';
+    exit;
+}
+if (preg_match('#^/api/usuarios/\d+$#', $request) && $method === 'PUT') {
+    require 'src/usuarios/update.php';
+    exit;
+}
+if (preg_match('#^/api/usuarios/\d+$#', $request) && $method === 'DELETE') {
+    require 'src/usuarios/delete.php';
+    exit;
+}
+
+// Default 404
+http_response_code(404);
+echo json_encode([
+    "error" => "Rota não encontrada",
+    "rota"  => $request,
+    "method"=> $method
+]);
