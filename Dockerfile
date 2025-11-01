@@ -11,10 +11,10 @@ COPY . .
 # Instalar dependências do Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && composer install --no-dev
+    && composer install --no-dev --optimize-autoloader
 
-# Expor a porta
+# Expor a porta (Render usa a variável PORT internamente)
 EXPOSE 10000
 
 # Comando para iniciar o servidor
-CMD ["php", "-S", "0.0.0.0:10000", "-t", "src"]
+CMD ["php", "-S", "0.0.0.0:${PORT}", "-t", ".", "index.php"]
