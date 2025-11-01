@@ -125,7 +125,3 @@ A aplicação estará disponível em breve no Render.
 👉 Link será adicionado após configuração do serviço.  
 
 ---
-
-## 📊 Status do Build
-
-![CI](https://github.com/SEU-USUARIO/task-manager-api/actions/workflows/ci.yml/badge.svg)
