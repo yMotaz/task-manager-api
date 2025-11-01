@@ -10,38 +10,42 @@ if ($request === '/' && $method === 'GET') {
     exit;
 }
 
-// TASKS
-if ($request === '/api/tasks' && $method === 'GET') {
+/**
+ * TASKS
+ */
+if ($request === '/tasks' && $method === 'GET') {
     require 'src/tasks/index.php';
     exit;
 }
-if ($request === '/api/tasks' && $method === 'POST') {
+if ($request === '/tasks' && $method === 'POST') {
     require 'src/tasks/create.php';
     exit;
 }
-if (preg_match('#^/api/tasks/\d+$#', $request) && $method === 'PUT') {
+if (preg_match('#^/tasks/\d+$#', $request) && $method === 'PUT') {
     require 'src/tasks/update.php';
     exit;
 }
-if (preg_match('#^/api/tasks/\d+$#', $request) && $method === 'DELETE') {
+if (preg_match('#^/tasks/\d+$#', $request) && $method === 'DELETE') {
     require 'src/tasks/delete.php';
     exit;
 }
 
-// USUÁRIOS
-if ($request === '/api/usuarios' && $method === 'GET') {
+/**
+ * USUÁRIOS
+ */
+if ($request === '/usuarios' && $method === 'GET') {
     require 'src/usuarios/index.php';
     exit;
 }
-if ($request === '/api/usuarios' && $method === 'POST') {
+if ($request === '/usuarios' && $method === 'POST') {
     require 'src/usuarios/create.php';
     exit;
 }
-if (preg_match('#^/api/usuarios/\d+$#', $request) && $method === 'PUT') {
+if (preg_match('#^/usuarios/\d+$#', $request) && $method === 'PUT') {
     require 'src/usuarios/update.php';
     exit;
 }
-if (preg_match('#^/api/usuarios/\d+$#', $request) && $method === 'DELETE') {
+if (preg_match('#^/usuarios/\d+$#', $request) && $method === 'DELETE') {
     require 'src/usuarios/delete.php';
     exit;
 }
@@ -49,7 +53,7 @@ if (preg_match('#^/api/usuarios/\d+$#', $request) && $method === 'DELETE') {
 // Default 404
 http_response_code(404);
 echo json_encode([
-    "error" => "Rota não encontrada",
-    "rota"  => $request,
-    "method"=> $method
+    "error"  => "Rota não encontrada",
+    "rota"   => $request,
+    "method" => $method
 ]);
