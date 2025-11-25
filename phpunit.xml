@@ -3,10 +3,8 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
-         verbose="true"
          cacheDirectory=".phpunit.cache"
          executionOrder="random"
-         failOnWarning="true"
          failOnRisky="true"
          failOnIncomplete="true"
          failOnSkipped="true">
@@ -16,11 +14,4 @@
             <directory>teste</directory>
         </testsuite>
     </testsuites>
-
-    <coverage>
-        <report>
-            <html outputDirectory="coverage-html"/>
-            <text outputFile="php://stdout"/>
-        </report>
-    </coverage>
 </phpunit>
